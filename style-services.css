@@ -23,12 +23,13 @@ header {
   overflow: hidden;
   background: linear-gradient(
     135deg,
-    rgba(10, 26, 42, 0.9),
-    rgba(10, 10, 10, 0.95)
+    rgba(10, 26, 42, 0.3),
+    rgba(10, 10, 10, 0.5)
   );
+  
 }
 
-header video {
+.bg-video {
   position: absolute;
   top: 0;
   left: 0;
@@ -36,8 +37,9 @@ header video {
   height: 100%;
   object-fit: cover;
   z-index: -1;
-  opacity: 0.5;
+  opacity: 1;
 }
+
 
 header h1 {
   font-size: clamp(2rem, 7vw, 5rem);
@@ -45,25 +47,28 @@ header h1 {
   color: #2ecc71;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  text-shadow: 0 0 15px rgba(46, 204, 113, 0.6);
+  
   animation: glow 2s ease-in-out infinite;
 }
 
 header h1 span {
   display: inline-block;
-  transition: transform 0.3s ease, color 0.3s ease;
+  transition: transform 0.3s ease, filter 0.3s ease, color 0.3s ease;
 }
 
 header h1 span:hover {
   transform: scale(1.2);
   color: #ffffff;
-  filter: drop-shadow(0 0 10px #27ae60);
+  filter: 
+    drop-shadow(0 0 8px #b809bb)
+    drop-shadow(0 0 16px #b809bb)
+    drop-shadow(0 0 32px #b809bb);
 }
 
 /* Projects Section */
 #projects {
   padding: 4rem 0;
-  background: linear-gradient(to bottom, #0a0a0a, #1a2a3a);
+  background: linear-gradient(to top, #0a0a0a, #000000c3);
 }
 
 #text-holder h2 {
@@ -200,7 +205,7 @@ header h1 span:hover {
   transform: scale(1.15);
   box-shadow: 0 0 15px rgba(46, 204, 113, 0.6), 0 0 25px rgba(46, 204, 113, 0.4);
   color: #ffffff;
-}
+}`
 
 /* Animations */
 @keyframes glow {
@@ -301,5 +306,65 @@ header h1 span:hover {
 
   .glide__slide img {
     height: 120px;
+  }
+}
+
+#our{
+  margin-right: 5vw;
+}
+
+.fade-letter {
+  opacity: 0;
+  animation: fadeIn 0.6s ease forwards;
+  display: inline-block; /* Needed for transform/scale to work */
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+#projects {
+  position: relative;
+  background-color: #000000; /* solid black background */
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Glowing Green Patches */
+#projects::before,
+#projects::after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0, 255, 0, 0.3) 0%, transparent 70%);
+  animation: floatGlow 8s ease-in-out infinite;
+  z-index: 0;
+}
+
+/* Position & movement of patches */
+#projects::before {
+  top: 10%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+#projects::after {
+  bottom: 15%;
+  right: 25%;
+  animation-delay: 4s;
+}
+
+/* Animation keyframes */
+@keyframes floatGlow {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-30px) scale(1.2);
+    opacity: 0.8;
   }
 }
