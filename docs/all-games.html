@@ -3,10 +3,564 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/all-games.css">
+    <title>Our Games - GauravGo</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            font-family: "Orbitron", sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        header {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(10, 26, 42, 0.3), rgba(10, 10, 10, 0.5));
+        }
+
+        header h1 {
+            font-size: clamp(2rem, 7vw, 5rem);
+            font-weight: 800;
+            color: #2ecc71;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        header h1 span {
+            display: inline-block;
+            transition: transform 0.3s ease, filter 0.3s ease, color 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        header h1 span:nth-child(n) {
+            animation-delay: calc(0.1s * var(--i));
+        }
+
+        header h1 span:hover {
+            transform: scale(1.2);
+            color: #ffffff;
+            filter: drop-shadow(0 0 8px #2ecc71) drop-shadow(0 0 16px #2ecc71);
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 15px rgba(46, 204, 113, 0.6); }
+            50% { text-shadow: 0 0 20px rgba(46, 204, 113, 0.8); }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        #projects {
+            padding: 4rem 0;
+            background: #000000;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        #projects::before, #projects::after {
+            content: "";
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(46, 204, 113, 0.3) 0%, transparent 70%);
+            animation: floatGlow 8s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        #projects::before {
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        #projects::after {
+            bottom: 15%;
+            right: 25%;
+            animation-delay: 4s;
+        }
+
+        @keyframes floatGlow {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.5; }
+            50% { transform: translateY(-30px) scale(1.2); opacity: 0.8; }
+        }
+
+        .filter-btn {
+            background: rgba(10, 10, 20, 0.9);
+            border: 2px solid #2ecc71;
+            color: #2ecc71;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #2ecc71;
+            color: #000;
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.6);
+        }
+
+        .swiper-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        .swiper-slide {
+            width: clamp(260px, 25vw, 340px);
+            background: rgba(10, 10, 20, 0.9);
+            border: 2px solid #2ecc71;
+            border-radius: 0.75rem;
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 6px 18px rgba(46, 204, 113, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .swiper-slide:hover {
+            transform: scale(1.05) translateY(-8px);
+            box-shadow: 0 10px 22px rgba(46, 204, 113, 0.4);
+            border-color: #27ae60;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16/9;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .swiper-slide img:hover {
+            transform: scale(1.08);
+            filter: brightness(1.15);
+        }
+
+        .swiper-slide h3 {
+            font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+            font-weight: 700;
+            color: #2ecc71;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .swiper-slide:hover h3 {
+            color: #27ae60;
+        }
+
+        .swiper-slide p {
+            font-size: clamp(0.7rem, 1.3vw, 0.8rem);
+            color: #ccc;
+            line-height: 1.5;
+            transition: color 0.3s ease;
+        }
+
+        .swiper-slide:hover p {
+            color: #e0e0e0;
+        }
+
+        .swiper-button-prev, .swiper-button-next {
+            background: linear-gradient(135deg, #1a1a1a, #333333);
+            border: 2px solid #2ecc71;
+            color: #2ecc71;
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: "Orbitron", sans-serif;
+            box-shadow: inset 0 0 10px rgba(46, 204, 113, 0.3), 0 0 10px rgba(46, 204, 113, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .swiper-button-prev::after, .swiper-button-next::after {
+            content: '';
+        }
+
+        .swiper-button-prev::before {
+            content: '←';
+        }
+
+        .swiper-button-next::before {
+            content: '→';
+        }
+
+        .swiper-button-prev:hover, .swiper-button-next:hover {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: #000;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.7);
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2ecc71;
+            color: #000;
+            padding: 12px;
+            border-radius: 50%;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .scroll-to-top:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.6);
+        }
+
+        @media (max-width: 1024px) {
+            header { height: 100vh; }
+            header h1 { font-size: clamp(1.8rem, 6vw, 3.5rem); }
+            .swiper-slide { width: clamp(240px, 35vw, 320px); }
+            .swiper-slide img { height: auto; }
+        }
+
+        @media (max-width: 768px) {
+            header { height: 100vh; }
+            header h1 { font-size: clamp(1.6rem, 5.5vw, 2.5rem); }
+            #projects { padding: 2rem 0; }
+            .swiper-slide { width: clamp(220px, 70vw, 280px); }
+            .swiper-slide img { height: auto; }
+        }
+
+        @media (max-width: 640px) {
+            header h1 { font-size: clamp(1.4rem, 5vw, 2rem); }
+            .swiper-slide { width: clamp(200px, 80vw, 260px); }
+            .swiper-slide img { height: auto; }
+        }
+
+        @media (max-width: 480px) {
+            header h1 { font-size: clamp(1.2rem, 4.5vw, 1.8rem); }
+            .swiper-slide { width: clamp(180px, 85vw, 240px); }
+            .swiper-slide img { height: auto; }
+        }
+    </style>
 </head>
 <body>
-    
+    <!-- Background Video -->
+    <video autoplay muted loop class="bg-video">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-dark-background-with-green-particles-32347-large.mp4" type="video/mp4">
+    </video>
+
+    <!-- Header -->
+    <header data-aos="fade-down" data-aos-duration="1000">
+        <h1>
+            <span style="--i: 1">O</span><span style="--i: 2">u</span><span style="--i: 3">r</span>
+            <span style="--i: 4">&nbsp;</span>
+            <span style="--i: 5">G</span><span style="--i: 6">a</span><span style="--i: 7">m</span><span style="--i: 8">e</span><span style="--i: 9">s</span>
+        </h1>
+    </header>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container mx-auto px-4">
+            <!-- Filters -->
+            <div class="flex flex-wrap gap-4 justify-center mb-8" data-aos="fade-up" data-aos-duration="1000">
+                <button class="filter-btn px-6 py-2 rounded-full" data-filter="all">All</button>
+                <button class="filter-btn px-6 py-2 rounded-full" data-filter="battle-royale">Battle Royale</button>
+                <button class="filter-btn px-6 py-2 rounded-full" data-filter="f2p">F2P</button>
+                <button class="filter-btn px-6 py-2 rounded-full" data-filter="fps">FPS</button>
+            </div>
+
+            <!-- Sliders -->
+            <div id="all-games" class="swiper-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                <h2 class="text-2xl font-bold mb-4 text-center">All Games</h2>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                        <img src="/media-home-page/emoji-wizard.png" alt="Emoji Wizard">
+                        <h3>Emoji Wizard</h3>
+                        <p>A Magical Emoji Puzzle Adventure ✨<br>Match, combine, and strategize through exciting levels filled with animated emojis.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+                        <img src="/media-home-page/Untitled-design-2.png" alt="Cosmic Alien Quest">
+                        <h3>Cosmic Alien Quest</h3>
+                        <p>Explore, Battle, Conquer the Universe! 🌌🚀<br>Battle hostile extraterrestrial forces and uncover secrets of distant galaxies.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
+                        <img src="/media-home-page/Ping-Pong-2.png" alt="Ping Pong">
+                        <h3>Ping Pong: Table Tennis Board</h3>
+                        <p>A fresh take on classic table tennis with engaging daily challenges.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="700">
+                        <img src="/media-home-page/toon-flyers-768x480.png" alt="Toon Flyers">
+                        <h3>Toon Flyers</h3>
+                        <p>A vibrant twist on the classic flying adventure game with daily challenges.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="800">
+                        <img src="/media-home-page/Bounce-Fall-768x480.png" alt="Bounce And Fall">
+                        <h3>Bounce And Fall</h3>
+                        <p>Test your reflexes in this arcade-style game with rotating circular discs.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="900">
+                        <img src="/media-home-page/Puzzle-7.png" alt="Puzzle Artful Armor">
+                        <h3>Puzzle Artful Armor</h3>
+                        <p>A puzzle game that challenges your artistic skills with intricate patterns.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="1000">
+                        <img src="https://via.placeholder.com/340x160?text=Galactic+Shooter" alt="Galactic Shooter">
+                        <h3>Galactic Shooter</h3>
+                        <p>Blast through space in this intense FPS adventure! 🌠💥<br>Take on alien fleets with high-octane action.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="1100">
+                        <img src="https://via.placeholder.com/340x160?text=Survival+Arena" alt="Survival Arena">
+                        <h3>Survival Arena</h3>
+                        <p>Outlast opponents in this thrilling battle royale! 🏹🔥<br>Scavenge and fight to be the last one standing.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="1200">
+                        <img src="https://via.placeholder.com/340x160?text=Epic+Showdown" alt="Epic Showdown">
+                        <h3>Epic Showdown</h3>
+                        <p>Clash in an epic battle royale showdown! ⚔️🌌<br>Master strategy to dominate the battlefield.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+
+            <div id="f2p-games" class="swiper-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+                <h2 class="text-2xl font-bold mb-4 text-center">F2P Games</h2>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                        <img src="/media-home-page/emoji-wizard.png" alt="Emoji Wizard">
+                        <h3>Emoji Wizard</h3>
+                        <p>A Magical Emoji Puzzle Adventure ✨<br>Match, combine, and strategize through exciting levels filled with animated emojis.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+                        <img src="/media-home-page/Ping-Pong-2.png" alt="Ping Pong">
+                        <h3>Ping Pong: Table Tennis Board</h3>
+                        <p>A fresh take on classic table tennis with engaging daily challenges.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
+                        <img src="/media-home-page/toon-flyers-768x480.png" alt="Toon Flyers">
+                        <h3>Toon Flyers</h3>
+                        <p>A vibrant twist on the classic flying adventure game with daily challenges.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="700">
+                        <img src="/media-home-page/Bounce-Fall-768x480.png" alt="Bounce And Fall">
+                        <h3>Bounce And Fall</h3>
+                        <p>Test your reflexes in this arcade-style game with rotating circular discs.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="800">
+                        <img src="/media-home-page/Puzzle-7.png" alt="Puzzle Artful Armor">
+                        <h3>Puzzle Artful Armor</h3>
+                        <p>A puzzle game that challenges your artistic skills with intricate patterns.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+
+            <div id="fps-games" class="swiper-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                <h2 class="text-2xl font-bold mb-4 text-center">FPS Games</h2>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                        <img src="https://via.placeholder.com/340x160?text=Galactic+Shooter" alt="Galactic Shooter">
+                        <h3>Galactic Shooter</h3>
+                        <p>Blast through space in this intense FPS adventure! 🌠💥<br>Take on alien fleets with high-octane action.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+                        <img src="https://via.placeholder.com/340x160?text=Galactic+Shooter" alt="Galactic Shooter">
+                        <h3>Galactic Shooter</h3>
+                        <p>Blast through space in this intense FPS adventure! 🌠💥<br>Take on alien fleets with high-octane action.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
+                        <img src="https://via.placeholder.com/340x160?text=Galactic+Shooter" alt="Galactic Shooter">
+                        <h3>Galactic Shooter</h3>
+                        <p>Blast through space in this intense FPS adventure! 🌠💥<br>Take on alien fleets with high-octane action.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="battle-royale-games" class="swiper-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+                <h2 class="text-2xl font-bold mb-4 text-center">Battle Royale Games</h2>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                        <img src="https://via.placeholder.com/340x160?text=Survival+Arena" alt="Survival Arena">
+                        <h3>Survival Arena</h3>
+                        <p>Outlast opponents in this thrilling battle royale! 🏹🔥<br>Scavenge and fight to be the last one standing.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+                        <img src="https://via.placeholder.com/340x160?text=Epic+Showdown" alt="Epic Showdown">
+                        <h3>Epic Showdown</h3>
+                        <p>Clash in an epic battle royale showdown! ⚔️🌌<br>Master strategy to dominate the battlefield.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
+                        <img src="https://via.placeholder.com/340x160?text=Survival+Arena" alt="Survival Arena">
+                        <h3>Survival Arena</h3>
+                        <p>Outlast opponents in this thrilling battle royale! 🏹🔥<br>Scavenge and fight to be the last one standing.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="700">
+                        <img src="https://via.placeholder.com/340x160?text=Epic+Showdown" alt="Epic Showdown">
+                        <h3>Epic Showdown</h3>
+                        <p>Clash in an epic battle royale showdown! ⚔️🌌<br>Master strategy to dominate the battlefield.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="800">
+                        <img src="https://via.placeholder.com/340x160?text=Survival+Arena" alt="Survival Arena">
+                        <h3>Survival Arena</h3>
+                        <p>Outlast opponents in this thrilling battle royale! 🏹🔥<br>Scavenge and fight to be the last one standing.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                    <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="900">
+                        <img src="https://via.placeholder.com/340x160?text=Epic+Showdown" alt="Epic Showdown">
+                        <h3>Epic Showdown</h3>
+                        <p>Clash in an epic battle royale showdown! ⚔️🌌<br>Master strategy to dominate the battlefield.</p>
+                        <a href="#" class="inline-block bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 mt-auto">View Game</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll to Top Button -->
+        <button id="scrollToTop" class="scroll-to-top hidden" data-aos="fade-up" data-aos-duration="800">↑</button>
+    </section>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            once: true,
+            offset: 100,
+        });
+
+        // Initialize Swiper sliders
+        const allGamesSwiper = new Swiper('#all-games', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: { delay: 3000, disableOnInteraction: false },
+            navigation: {
+                nextEl: '#all-games .swiper-button-next',
+                prevEl: '#all-games .swiper-button-prev',
+            },
+            breakpoints: {
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+            }
+        });
+
+        const f2pSwiper = new Swiper('#f2p-games', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: { delay: 3000, disableOnInteraction: false, reverseDirection: true },
+            navigation: {
+                nextEl: '#f2p-games .swiper-button-next',
+                prevEl: '#f2p-games .swiper-button-prev',
+            },
+            breakpoints: {
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+            }
+        });
+
+        const fpsSwiper = new Swiper('#fps-games', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: { delay: 3000, disableOnInteraction: false },
+            breakpoints: {
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+            }
+        });
+
+        const battleRoyaleSwiper = new Swiper('#battle-royale-games', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: { delay: 3000, disableOnInteraction: false, reverseDirection: true },
+            breakpoints: {
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+            }
+        });
+
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const sliders = document.querySelectorAll('.swiper-container');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.dataset.filter;
+
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Show/hide sliders and refresh AOS
+                sliders.forEach(slider => {
+                    slider.style.display = filter === 'all' ? 'block' : slider.id === `${filter}-games` ? 'block' : 'none';
+                });
+                AOS.refresh();
+            });
+        });
+
+        // Scroll to top functionality
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        window.addEventListener('scroll', () => {
+            scrollToTopBtn.classList.toggle('hidden', window.scrollY <= 300);
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>
