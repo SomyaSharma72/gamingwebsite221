@@ -2,539 +2,875 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GauravGo Games Careers</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&family=Rajdhani:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/css/glide.core.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/css/glide.theme.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <style>
-        body {
-            background-color: #0a0a0a;
-            color: #e0e0e0;
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        .navbar {
-            background: rgba(10, 10, 20, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid #2ecc71;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 1rem 2rem;
-            animation: fadeInDown 1s ease-out;
-        }
-        .navbar .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            color: #2ecc71;
-            font-weight: 700;
-        }
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-        .nav-links a {
-            color: #e0e0e0;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        .nav-links a:hover {
-            color: #2ecc71;
-        }
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 0.3rem;
-            cursor: pointer;
-        }
-        .hamburger div {
-            width: 25px;
-            height: 3px;
-            background: #2ecc71;
-            transition: all 0.3s;
-        }
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: rgba(10, 10, 20, 0.95);
-                padding: 1rem;
-            }
-            .nav-links.active {
-                display: flex;
-                animation: slideInDown 0.5s ease-out;
-            }
-            .hamburger {
-                display: flex;
-            }
-            .hamburger.active div:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-            .hamburger.active div:nth-child(2) {
-                opacity: 0;
-            }
-            .hamburger.active div:nth-child(3) {
-                transform: rotate(-45deg) translate(5px, -5px);
-            }
-        }
-        .hero {
-            margin-top: 80px;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0a0a0a, #1a1a2a);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            opacity: 0;
-        }
-        .hero-content {
-            text-align: center;
-        }
-        .hero-content h1 span {
-            opacity: 0;
-            display: inline-block;
-            transition: all 0.5s ease;
-        }
-        .hero-content h1 span:hover {
-            transform: scale(1.2);
-            text-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71;
-            color: #fff;
-        }
-        .hero-content p {
-            font-size: 1.2rem;
-            color: #ccc;
-            margin-top: 1rem;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        .form-card {
-            background: rgba(10, 10, 20, 0.9);
-            backdrop-filter: blur(10px);
-            border: 2px solid #2ecc71;
-            border-radius: 1rem;
-            padding: 2rem;
-            margin-top: 2rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-        }
-        .form-card input,
-        .form-card select,
-        .form-card textarea {
-            background: #0a0a14;
-            border: 1px solid #2ecc71;
-            color: #e0e0e0;
-        }
-        .form-card button {
-            background: #2ecc71;
-            color: #0a0a14;
-            transition: background 0.3s;
-        }
-        .form-card button:hover {
-            background: #27ae60;
-        }
-        #why-join {
-            padding: 4rem 2rem;
-            background: #0a0a0a;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-        }
-        #why-join h2 span {
-            opacity: 0;
-            display: inline-block;
-            transition: all 0.5s ease;
-        }
-        #why-join h2 span:hover {
-            transform: scale(1.2);
-            text-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71;
-            color: #fff;
-        }
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        .benefit-card {
-            background: rgba(20, 20, 30, 0.9);
-            border: 1px solid #2ecc71;
-            border-radius: 1rem;
-            padding: 2rem;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-        }
-        .benefit-card:hover {
-            transform: translateY(-10px);
-        }
-        #requirements {
-            padding: 4rem 2rem;
-            background: #1a1a2a;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-        }
-        #requirements h2 span {
-            opacity: 0;
-            display: inline-block;
-            transition: all 0.5s ease;
-        }
-        #requirements h2 span:hover {
-            transform: scale(1.2);
-            text-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71;
-            color: #fff;
-        }
-        .glide__slide {
-            background: rgba(10, 10, 20, 0.9);
-            border: 1px solid #2ecc71;
-            border-radius: 1rem;
-            padding: 2rem;
-            min-height: 300px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-        }
-        .footer {
-            background: linear-gradient(to bottom right, #0a0a0a, #0e0f10, #141516);
-            color: #fff;
-            padding-top: 5rem;
-            padding-bottom: 5rem;
-            border-top: 1px solid #2a2a2a;
-            font-family: 'Rajdhani', sans-serif;
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-        }
-        .footer .bg-blur {
-            position: absolute;
-            pointer-events: none;
-        }
-        .footer .bg-blur div {
-            width: 20rem;
-            height: 20rem;
-            background: rgba(46, 204, 113, 0.1);
-            filter: blur(6rem);
-            border-radius: 50%;
-            animation: pulse 4s ease-in-out infinite;
-        }
-        .footer .bg-blur .top-left {
-            top: -5rem;
-            left: -5rem;
-        }
-        .footer .bg-blur .bottom-right {
-            bottom: 0;
-            right: 0;
-            animation-delay: 0.3s;
-        }
-        .footer-content {
-            max-width: 80rem;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            padding-bottom: 3rem;
-            border-bottom: 1px solid #2a2a2a;
-        }
-        .footer-column h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #2ecc71;
-            margin-bottom: 1.25rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1rem;
-        }
-        .footer-column ul {
-            list-style: none;
-            color: #e0e0e0;
-            font-size: 0.875rem;
-        }
-        .footer-column ul li a {
-            color: #e0e0e0;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-        .footer-column ul li a:hover {
-            padding-left: 0.5rem;
-            color: #2ecc71;
-        }
-        .footer-column .social-icons {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-top: 0.5rem;
-        }
-        .footer-column .social-icons a {
-            color: #2ecc71;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        .footer-column .social-icons a:hover {
-            transform: scale(1.1);
-            color: #fff;
-        }
-        .footer-column .hashtag {
-            background: rgba(46, 204, 113, 0.2);
-            color: #2ecc71;
-            font-size: 0.6875rem;
-            padding: 0.3125rem 1rem;
-            border-radius: 9999px;
-            letter-spacing: 0.05rem;
-            margin-top: 1.5rem;
-            animation: bounce 2s ease-in-out infinite;
-        }
-        .footer-copyright {
-            text-align: center;
-            color: #e0e0e0;
-            margin-top: 3rem;
-            font-size: 0.75rem;
-            letter-spacing: 0.05rem;
-        }
-        .footer-copyright .highlight {
-            color: #2ecc71;
-            font-weight: 600;
-        }
-        .footer-copyright .heart {
-            color: #2ecc71;
-        }
-        @keyframes fadeInDown {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes slideInDown {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes fadeInUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 0.8; }
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GauravGo Games Careers</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&family=Rajdhani:wght@400;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/css/glide.core.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/css/glide.theme.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #e0e0e0;
+      font-family: "Poppins", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      background: rgba(10, 10, 20, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid #2ecc71;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1rem 2rem;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .navbar .logo {
+      font-family: "Orbitron", sans-serif;
+      font-size: 1.5rem;
+      color: #2ecc71;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: #e0e0e0;
+      font-family: "Rajdhani", sans-serif;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #2ecc71;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 0.3rem;
+      cursor: pointer;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: #2ecc71;
+      transition: all 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(10, 10, 20, 0.95);
+        padding: 1rem;
+      }
+
+      .nav-links.active {
+        display: flex;
+        animation: slideInDown 0.5s ease-out;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hamburger.active div:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .hamburger.active div:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active div:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+    }
+
+    .hero {
+      margin-top: 80px;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a0a0a, #1a1a2a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+    }
+
+    .hero-content {
+      text-align: center;
+    }
+
+    .hero-content h1 span {
+      opacity: 0;
+      display: inline-block;
+      transition: all 0.5s ease;
+    }
+
+    .hero-content h1 span:hover {
+      transform: scale(1.2);
+      text-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71;
+      color: #fff;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      color: #ccc;
+      margin-top: 1rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .form-card {
+      background: rgba(10, 10, 20, 0.9);
+      backdrop-filter: blur(10px);
+      border: 2px solid #2ecc71;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-top: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+
+    .form-card input,
+    .form-card select,
+    .form-card textarea {
+      background: #0a0a14;
+      border: 1px solid #2ecc71;
+      color: #e0e0e0;
+    }
+
+    .form-card button {
+      background: #2ecc71;
+      color: #0a0a14;
+      transition: background 0.3s;
+    }
+
+    .form-card button:hover {
+      background: #27ae60;
+    }
+
+    #why-join {
+      padding: 4rem 2rem;
+      background: #0a0a0a;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+
+    #why-join h2 span {
+      opacity: 0;
+      display: inline-block;
+      transition: all 0.5s ease;
+    }
+
+    #why-join h2 span:hover {
+      transform: scale(1.2);
+      text-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71;
+      color: #fff;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .benefit-card {
+      background: rgba(20, 20, 30, 0.9);
+      border: 1px solid #2ecc71;
+      border-radius: 1rem;
+      padding: 2rem;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-10px);
+    }
+
+    #requirements {
+      padding: 4rem 2rem;
+      background: #1a1a2a;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+
+    #requirements h2 span {
+      opacity: 0;
+      display: inline-block;
+      transition: all 0.5s ease;
+    }
+
+    #requirements h2 span:hover {
+      transform: scale(1.2);
+      text-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71;
+      color: #fff;
+    }
+
+    .glide__slide {
+      background: rgba(10, 10, 20, 0.9);
+      border: 1px solid #2ecc71;
+      border-radius: 1rem;
+      padding: 2rem;
+      min-height: 300px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+
+    .footer {
+      background: linear-gradient(to bottom right, #0a0a0a, #0e0f10, #141516);
+      color: #fff;
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+      border-top: 1px solid #2a2a2a;
+      font-family: "Rajdhani", sans-serif;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+
+    .footer .bg-blur {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .footer .bg-blur div {
+      width: 20rem;
+      height: 20rem;
+      background: rgba(46, 204, 113, 0.1);
+      filter: blur(6rem);
+      border-radius: 50%;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    .footer .bg-blur .top-left {
+      top: -5rem;
+      left: -5rem;
+    }
+
+    .footer .bg-blur .bottom-right {
+      bottom: 0;
+      right: 0;
+      animation-delay: 0.3s;
+    }
+
+    .footer-content {
+      max-width: 80rem;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .footer-column h3 {
+      font-family: "Orbitron", sans-serif;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #2ecc71;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1rem;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      color: #e0e0e0;
+      font-size: 0.875rem;
+    }
+
+    .footer-column ul li a {
+      color: #e0e0e0;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .footer-column ul li a:hover {
+      padding-left: 0.5rem;
+      color: #2ecc71;
+    }
+
+    .footer-column .social-icons {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .footer-column .social-icons a {
+      color: #2ecc71;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .footer-column .social-icons a:hover {
+      transform: scale(1.1);
+      color: #fff;
+    }
+
+    .footer-column .hashtag {
+      background: rgba(46, 204, 113, 0.2);
+      color: #2ecc71;
+      font-size: 0.6875rem;
+      padding: 0.3125rem 1rem;
+      border-radius: 9999px;
+      letter-spacing: 0.05rem;
+      margin-top: 1.5rem;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    .footer-copyright {
+      text-align: center;
+      color: #e0e0e0;
+      margin-top: 3rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.05rem;
+    }
+
+    .footer-copyright .highlight {
+      color: #2ecc71;
+      font-weight: 600;
+    }
+
+    .footer-copyright .heart {
+      color: #2ecc71;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideInDown {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 0.5;
+      }
+
+      50% {
+        opacity: 0.8;
+      }
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-toggle {
+      color: #e0e0e0;
+      font-family: "Rajdhani", sans-serif;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: color 0.3s;
+      display: inline-block;
+      padding: 0.5rem 1rem;
+    }
+
+    .dropdown-toggle:hover {
+      color: #2ecc71;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background: rgba(10, 10, 20, 0.95);
+      border: 1px solid #2ecc71;
+      border-radius: 0.5rem;
+      min-width: 150px;
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+      padding: 0.5rem 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .dropdown-menu a {
+      color: #e0e0e0;
+      font-family: "Rajdhani", sans-serif;
+      font-size: 0.9rem;
+      display: block;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .dropdown-menu a:hover {
+      background: #2ecc71;
+      color: #0a0a14;
+    }
+
+    .dropdown-menu.active {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .dropdown {
+        width: 100%;
+      }
+
+      .dropdown-menu {
+        position: static;
+        display: none;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .dropdown-menu.active {
+        display: block;
+      }
+
+      .dropdown-menu a {
+        padding: 0.5rem 1rem;
+      }
+    }
+    .dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  color: #e0e0e0;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 1rem;
+}
+
+.dropdown-toggle:hover {
+  color: #2ecc71;
+}
+
+.dropdown-toggle i {
+  font-size: 0.8rem;
+  transition: transform 0.3s;
+}
+
+.dropdown-toggle:hover i {
+  color: #2ecc71;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background: rgba(10, 10, 20, 0.95);
+  border: 1px solid #2ecc71;
+  border-radius: 0.5rem;
+  min-width: 150px;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  padding: 0.5rem 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu a {
+  color: #e0e0e0;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.9rem;
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.dropdown-menu a:hover {
+  background: #2ecc71;
+  color: #0a0a14;
+}
+
+.dropdown-menu.active {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .dropdown {
+    width: 100%;
+  }
+  .dropdown-menu {
+    position: static;
+    display: none;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+  .dropdown-menu.active {
+    display: block;
+  }
+  .dropdown-menu a {
+    padding: 0.5rem 1rem;
+  }
+}
+  </style>
 </head>
 
 <body>
-    <nav class="navbar flex justify-between items-center">
-        <div class="logo">GauravGo Games</div>
-        <div class="hamburger" onclick="toggleMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Games</a>
-            <a href="#">Services</a>
-            <a href="#">Careers</a>
-            <a href="#">Contact</a>
-        </div>
-    </nav>
+  <nav class="navbar flex justify-between items-center">
+  <div class="logo">GauravGo Games</div>
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#">Games</a>
+    <a href="#">Services</a>
+    <a href="#">Careers</a>
+    <div class="dropdown">
+      <a href="#" class="dropdown-toggle">More <i class="fas fa-chevron-down"></i></a>
+      <div class="dropdown-menu">
+        <a href="#">Advertisers</a>
+        <a href="#">Media Coverage</a>
+        <a href="#">Our Supporters</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <a href="#" class="dropdown-toggle">Contact <i class="fas fa-chevron-down"></i></a>
+      <div class="dropdown-menu">
+        <a href="#">About Us</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1><span>C</span><span>a</span><span>r</span><span>e</span><span>e</span><span>r</span><span>s</span> <span>a</span><span>t</span> <span>G</span><span>a</span><span>u</span><span>r</span><span>a</span><span>v</span><span>G</span><span>o</span></h1>
-            <p>Join us to innovate and shape the future of gaming!</p>
-            <div class="form-card max-w-md mx-auto mt-6">
-                <h3 class="text-xl font-bold text-green-400 mb-4">Apply Now</h3>
-                <div class="space-y-4">
-                    <input type="text" placeholder="Full Name" class="w-full p-2 rounded">
-                    <input type="email" placeholder="Email" class="w-full p-2 rounded">
-                    <select class="w-full p-2 rounded">
-                        <option value="" disabled selected>Select Role</option>
-                        <option value="developer">Game Developer</option>
-                        <option value="designer">Game Designer</option>
-                        <option value="artist">3D Artist</option>
-                    </select>
-                    <textarea placeholder="Tell us about yourself" class="w-full p-2 rounded" rows="4"></textarea>
-                    <button class="w-full p-2 rounded font-semibold">Submit</button>
-                </div>
-            </div>
-        </div>
-    </section>
+<script>
+  function toggleMenu() {
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+    const dropdowns = document.querySelectorAll(".dropdown-menu");
+    hamburger.classList.toggle("active");
+    navLinks.classList.toggle("active");
+    dropdowns.forEach((dropdown) => dropdown.classList.remove("active"));
+  }
 
-    <section id="why-join">
-        <h2><span>W</span><span>h</span><span>y</span> <span>J</span><span>o</span><span>i</span><span>n</span> <span>U</span><span>s</span>?</h2>
-        <div class="benefits-grid">
-            <div class="benefit-card">
-                <h3>Innovative Work</h3>
-                <p>Create cutting-edge games with the latest technology.</p>
-            </div>
-            <div class="benefit-card">
-                <h3>Team Spirit</h3>
-                <p>Collaborate with a passionate and diverse team.</p>
-            </div>
-            <div class="benefit-card">
-                <h3>Growth Opportunities</h3>
-                <p>Advance your career with training and mentorship.</p>
-            </div>
-        </div>
-    </section>
+  document.querySelectorAll(".dropdown-toggle").forEach((toggle) => {
+    toggle.addEventListener("click", function (e) {
+      e.preventDefault();
+      const dropdownMenu = this.nextElementSibling;
+      const isActive = dropdownMenu.classList.contains("active");
+      document.querySelectorAll(".dropdown-menu").forEach((menu) => menu.classList.remove("active"));
+      if (!isActive) {
+        dropdownMenu.classList.add("active");
+      }
+    });
+  });
 
-    <section id="requirements">
-        <h2><span>S</span><span>y</span><span>s</span><span>t</span><span>e</span><span>m</span> <span>R</span><span>e</span><span>q</span><span>u</span><span>i</span><span>r</span><span>e</span><span>m</span><span>e</span><span>n</span><span>t</span><span>s</span></h2>
-        <div class="glide mt-6">
-            <div class="glide__track" data-glide-el="track">
-                <ul class="glide__slides">
-                    <li class="glide__slide">
-                        <h3>Game Developer</h3>
-                        <p><strong>CPU:</strong> Intel i7 or Ryzen 7 (3.0GHz+)</p>
-                        <p><strong>RAM:</strong> 16GB DDR4</p>
-                        <p><strong>GPU:</strong> NVIDIA GTX 1660 Ti (4GB VRAM)</p>
-                        <p><strong>Storage:</strong> 512GB SSD</p>
-                        <p><strong>OS:</strong> Windows 10/11 or Linux</p>
-                    </li>
-                    <li class="glide__slide">
-                        <h3>Game Designer</h3>
-                        <p><strong>CPU:</strong> Intel i5 or Ryzen 5 (2.5GHz+)</p>
-                        <p><strong>RAM:</strong> 8GB DDR4</p>
-                        <p><strong>GPU:</strong> NVIDIA GTX 1050 (2GB VRAM)</p>
-                        <p><strong>Storage:</strong> 256GB SSD</p>
-                        <p><strong>OS:</strong> Windows 10 or macOS</p>
-                    </li>
-                    <li class="glide__slide">
-                        <h3>3D Artist</h3>
-                        <p><strong>CPU:</strong> Intel i5 or Ryzen 5 (2.8GHz+)</p>
-                        <p><strong>RAM:</strong> 8GB DDR4</p>
-                        <p><strong>GPU:</strong> NVIDIA RTX 2060 (6GB VRAM)</p>
-                        <p><strong>Storage:</strong> 1TB HDD + 256GB SSD</p>
-                        <p><strong>OS:</strong> Windows 10/11</p>
-                    </li>
-                </ul>
-            </div>
-            <div class="glide__arrows" data-glide-el="controls">
-                <button class="glide__arrow glide__arrow--left" data-glide-dir="<">←</button>
-                <button class="glide__arrow glide__arrow--right" data-glide-dir=">">→</button>
-            </div>
-        </div>
-    </section>
+  document.addEventListener("click", function (e) {
+    const dropdowns = document.querySelectorAll(".dropdown-menu");
+    const toggles = document.querySelectorAll(".dropdown-toggle");
+    let isClickInside = false;
+    toggles.forEach((toggle) => {
+      if (toggle.contains(e.target)) isClickInside = true;
+    });
+    if (!isClickInside) {
+      dropdowns.forEach((dropdown) => dropdown.classList.remove("active"));
+    }
+  });
+</script>
 
-    <footer class="footer" role="contentinfo">
-        <div class="bg-blur">
-            <div class="top-left"></div>
-            <div class="bottom-right"></div>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>
+        <span>C</span><span>a</span><span>r</span><span>e</span><span>e</span><span>r</span><span>s</span>
+        <span>a</span><span>t</span>
+        <span>G</span><span>a</span><span>u</span><span>r</span><span>a</span><span>v</span><span>G</span><span>o</span>
+      </h1>
+      <p>Join us to innovate and shape the future of gaming!</p>
+      <div class="form-card max-w-md mx-auto mt-6">
+        <h3 class="text-xl font-bold text-green-400 mb-4">Apply Now</h3>
+        <div class="space-y-4">
+          <input type="text" placeholder="Full Name" class="w-full p-2 rounded" />
+          <input type="email" placeholder="Email" class="w-full p-2 rounded" />
+          <select class="w-full p-2 rounded">
+            <option value="" disabled selected>Select Role</option>
+            <option value="developer">Game Developer</option>
+            <option value="designer">Game Designer</option>
+            <option value="artist">3D Artist</option>
+          </select>
+          <textarea placeholder="Tell us about yourself" class="w-full p-2 rounded" rows="4"></textarea>
+          <button class="w-full p-2 rounded font-semibold">Submit</button>
         </div>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Press</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Explore</h3>
-                <ul>
-                    <li><a href="#">New Releases</a></li>
-                    <li><a href="#">Community</a></li>
-                    <li><a href="#">Dev Console</a></li>
-                    <li><a href="#">Game Events</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Connect</h3>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-discord"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-x-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-                <div class="hashtag">#GauravGoGames</div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            © <script>document.write(new Date().getFullYear())</script> <span class="highlight">GauravGo Games</span>. All rights reserved. | Crafted with <span class="heart">💚</span> by Somya
-        </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/glide.min.js"></script>
-    <script>
-        new Glide('.glide', {
-            type: 'carousel',
-            perView: 3,
-            gap: 20,
-            breakpoints: {
-                1024: { perView: 2 },
-                640: { perView: 1 }
+  <section id="why-join">
+    <h2>
+      <span>W</span><span>h</span><span>y</span> <span>J</span><span>o</span><span>i</span><span>n</span>
+      <span>U</span><span>s</span>?
+    </h2>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <h3>Innovative Work</h3>
+        <p>Create cutting-edge games with the latest technology.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>Team Spirit</h3>
+        <p>Collaborate with a passionate and diverse team.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>Growth Opportunities</h3>
+        <p>Advance your career with training and mentorship.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="requirements">
+    <h2>
+      <span>S</span><span>y</span><span>s</span><span>t</span><span>e</span><span>m</span>
+      <span>R</span><span>e</span><span>q</span><span>u</span><span>i</span><span>r</span><span>e</span><span>m</span><span>e</span><span>n</span><span>t</span><span>s</span>
+    </h2>
+    <div class="glide mt-6">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          <li class="glide__slide">
+            <h3>Game Developer</h3>
+            <p><strong>CPU:</strong> Intel i7 or Ryzen 7 (3.0GHz+)</p>
+            <p><strong>RAM:</strong> 16GB DDR4</p>
+            <p><strong>GPU:</strong> NVIDIA GTX 1660 Ti (4GB VRAM)</p>
+            <p><strong>Storage:</strong> 512GB SSD</p>
+            <p><strong>OS:</strong> Windows 10/11 or Linux</p>
+          </li>
+          <li class="glide__slide">
+            <h3>Game Designer</h3>
+            <p><strong>CPU:</strong> Intel i5 or Ryzen 5 (2.5GHz+)</p>
+            <p><strong>RAM:</strong> 8GB DDR4</p>
+            <p><strong>GPU:</strong> NVIDIA GTX 1050 (2GB VRAM)</p>
+            <p><strong>Storage:</strong> 256GB SSD</p>
+            <p><strong>OS:</strong> Windows 10 or macOS</p>
+          </li>
+          <li class="glide__slide">
+            <h3>3D Artist</h3>
+            <p><strong>CPU:</strong> Intel i5 or Ryzen 5 (2.8GHz+)</p>
+            <p><strong>RAM:</strong> 8GB DDR4</p>
+            <p><strong>GPU:</strong> NVIDIA RTX 2060 (6GB VRAM)</p>
+            <p><strong>Storage:</strong> 1TB HDD + 256GB SSD</p>
+            <p><strong>OS:</strong> Windows 10/11</p>
+          </li>
+        </ul>
+      </div>
+      <div class="glide__arrows" data-glide-el="controls">
+        <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+          ←
+        </button>
+        <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+          →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" role="contentinfo">
+    <div class="bg-blur">
+      <div class="top-left"></div>
+      <div class="bottom-right"></div>
+    </div>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="#">New Releases</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Dev Console</a></li>
+          <li><a href="#">Game Events</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Connect</h3>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-discord"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="hashtag">#GauravGoGames</div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      ©
+      <script>
+        document.write(new Date().getFullYear());
+      </script>
+      <span class="highlight">GauravGo Games</span>. All rights reserved. |
+      Crafted with <span class="heart">💚</span> by Somya
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/glide.min.js"></script>
+  <script>
+    new Glide(".glide", {
+      type: "carousel",
+      perView: 3,
+      gap: 20,
+      breakpoints: {
+        1024: { perView: 2 },
+        640: { perView: 1 },
+      },
+    }).mount();
+
+    function toggleMenu() {
+      const hamburger = document.querySelector(".hamburger");
+      const navLinks = document.querySelector(".nav-links");
+      hamburger.classList.toggle("active");
+      navLinks.classList.toggle("active");
+    }
+
+    // Scroll animation
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target.classList.contains("hero")) {
+              entry.target.style.opacity = "1";
+              entry.target
+                .querySelectorAll("h1 span")
+                .forEach((span, index) => {
+                  setTimeout(() => (span.style.opacity = "1"), index * 100);
+                });
+              entry.target.querySelector("p").style.opacity = "1";
+              entry.target.querySelector(".form-card").style.opacity = "1";
+              entry.target.querySelector(".form-card").style.transform =
+                "translateY(0)";
+            } else if (entry.target.id === "why-join") {
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
+              entry.target
+                .querySelectorAll("h2 span")
+                .forEach((span, index) => {
+                  setTimeout(() => (span.style.opacity = "1"), index * 100);
+                });
+              entry.target
+                .querySelectorAll(".benefit-card")
+                .forEach((card, index) => {
+                  setTimeout(() => (card.style.opacity = "1"), index * 200);
+                  setTimeout(
+                    () => (card.style.transform = "translateY(0)"),
+                    index * 200
+                  );
+                });
+            } else if (entry.target.id === "requirements") {
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
+              entry.target
+                .querySelectorAll("h2 span")
+                .forEach((span, index) => {
+                  setTimeout(() => (span.style.opacity = "1"), index * 100);
+                });
+              entry.target
+                .querySelectorAll(".glide__slide")
+                .forEach((slide, index) => {
+                  setTimeout(() => (slide.style.opacity = "1"), index * 200);
+                  setTimeout(
+                    () => (slide.style.transform = "translateY(0)"),
+                    index * 200
+                  );
+                });
+            } else if (entry.target.classList.contains("footer")) {
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
             }
-        }).mount();
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-        function toggleMenu() {
-            const hamburger = document.querySelector('.hamburger');
-            const navLinks = document.querySelector('.nav-links');
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        }
-
-        // Scroll animation
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    if (entry.target.classList.contains('hero')) {
-                        entry.target.style.opacity = '1';
-                        entry.target.querySelectorAll('h1 span').forEach((span, index) => {
-                            setTimeout(() => span.style.opacity = '1', index * 100);
-                        });
-                        entry.target.querySelector('p').style.opacity = '1';
-                        entry.target.querySelector('.form-card').style.opacity = '1';
-                        entry.target.querySelector('.form-card').style.transform = 'translateY(0)';
-                    } else if (entry.target.id === 'why-join') {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                        entry.target.querySelectorAll('h2 span').forEach((span, index) => {
-                            setTimeout(() => span.style.opacity = '1', index * 100);
-                        });
-                        entry.target.querySelectorAll('.benefit-card').forEach((card, index) => {
-                            setTimeout(() => card.style.opacity = '1', index * 200);
-                            setTimeout(() => card.style.transform = 'translateY(0)', index * 200);
-                        });
-                    } else if (entry.target.id === 'requirements') {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                        entry.target.querySelectorAll('h2 span').forEach((span, index) => {
-                            setTimeout(() => span.style.opacity = '1', index * 100);
-                        });
-                        entry.target.querySelectorAll('.glide__slide').forEach((slide, index) => {
-                            setTimeout(() => slide.style.opacity = '1', index * 200);
-                            setTimeout(() => slide.style.transform = 'translateY(0)', index * 200);
-                        });
-                    } else if (entry.target.classList.contains('footer')) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.hero, #why-join, #requirements, .footer').forEach(section => observer.observe(section));
-    </script>
+    document
+      .querySelectorAll(".hero, #why-join, #requirements, .footer")
+      .forEach((section) => observer.observe(section));
+  </script>
 </body>
 
 </html>
